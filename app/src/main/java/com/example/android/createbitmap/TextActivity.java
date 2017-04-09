@@ -1,5 +1,6 @@
 package com.example.android.createbitmap;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -47,6 +49,10 @@ public class TextActivity extends AppCompatActivity {
     }
 
     private Bitmap BitmapProcessing(){
+        DisplayMetrics metrics = new DisplayMetrics();
+        Activity activity = TextActivity.this;
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        float logicalDensity = metrics.density;
         Bitmap inputBitmap;
         Bitmap outputBitmap = null;
         Canvas newCanvas;
@@ -58,7 +64,8 @@ public class TextActivity extends AppCompatActivity {
                 config = Bitmap.Config.ARGB_8888;
             }
             if(caption != null){
-
+                int size = getResources().getDimensionPixelSize(R.dimen.myFontSize);
+                inputBitmap.setDensity(Bitmap.DENSITY_NONE);
                 // Setting up TextPaint for drawing text on canvas
                 float scale = getResources().getDisplayMetrics().density;
                 TextPaint paint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
@@ -68,12 +75,17 @@ public class TextActivity extends AppCompatActivity {
                 float textFontSmall = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 14,
                         getBaseContext().getResources().getDisplayMetrics() );
                 float textFontBig = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 16,
-                        getBaseContext().getResources().getDisplayMetrics());;
+                        getBaseContext().getResources().getDisplayMetrics());
+                float standardSize = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 320,
+                        getBaseContext().getResources().getDisplayMetrics());
 
-                Bitmap bitmapText1 = createTextBitmap(paint,inputBitmap.getWidth(),textFontSmall,text1,inputBitmap.getConfig());
-                Bitmap bitmapText2 = createTextBitmap(paint,inputBitmap.getWidth(),textFontSmall,text2,inputBitmap.getConfig());
-                Bitmap bitmapText3 = createTextBitmap(paint,inputBitmap.getWidth(),textFontSmall,text3,inputBitmap.getConfig());
-                Bitmap bitmapText4 = createTextBitmap(paint,inputBitmap.getWidth(),textFontBig,text4,inputBitmap.getConfig());
+                float textSizeSmall = (textFontSmall*inputBitmap.getWidth()/standardSize);
+                float textSizeBig = (textFontBig*inputBitmap.getWidth()/standardSize);
+
+                Bitmap bitmapText1 = createTextBitmap(paint, inputBitmap.getWidth(),textSizeSmall,text1,inputBitmap.getConfig());
+                Bitmap bitmapText2 = createTextBitmap(paint,inputBitmap.getWidth(),textSizeSmall,text2,inputBitmap.getConfig());
+                Bitmap bitmapText3 = createTextBitmap(paint,inputBitmap.getWidth(),textSizeSmall,text3,inputBitmap.getConfig());
+                Bitmap bitmapText4 = createTextBitmap(paint,inputBitmap.getWidth(),textSizeBig,text4,inputBitmap.getConfig());
                 //Creating the final bitmap with the image and text
                 //Total height of the bitmap
                 int heightOutput = inputBitmap.getHeight() + bitmapText1.getHeight() + bitmapText2.getHeight()
@@ -97,8 +109,9 @@ public class TextActivity extends AppCompatActivity {
 
     public Bitmap createTextBitmap( TextPaint paint, int width, float textSize, String text, Bitmap.Config config){
         int x,y;
+        //Toast.makeText(TextActivity.this,"TEXT SIZE: " + textSize + "WIDTH: " + width,Toast.LENGTH_SHORT).show();
         paint.setTextSize(textSize);
-        StaticLayout textLayout = new StaticLayout(text, paint,width, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        StaticLayout textLayout = new StaticLayout(text, paint, width, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
         int textLayoutHeight = textLayout.getHeight();
         Bitmap outputBitmap = Bitmap.createBitmap(width,textLayoutHeight, config);
         outputBitmap = outputBitmap.copy(config,true);
@@ -110,4 +123,5 @@ public class TextActivity extends AppCompatActivity {
         canvas.restore();
         return outputBitmap;
     }
+
 }
