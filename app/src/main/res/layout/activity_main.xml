@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.createbitmap.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/selectImageButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SELECT IMAGE"/>
+
+        <ImageView
+            android:id="@+id/imageViewDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/edit_text_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="TEXT 1"
+            android:nestedScrollingEnabled="true"/>
+
+        <EditText
+            android:id="@+id/edit_text_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="TEXT 2"
+            android:nestedScrollingEnabled="true"/>
+
+        <EditText
+            android:id="@+id/edit_text_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="TEXT 3"
+            android:nestedScrollingEnabled="true"/>
+
+        <EditText
+            android:id="@+id/edit_text_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="TEXT 4"
+            android:nestedScrollingEnabled="true"/>
+
+        <Button
+            android:id="@+id/generate_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="GENERATE"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+</ScrollView>
