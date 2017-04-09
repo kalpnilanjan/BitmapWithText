@@ -14,12 +14,14 @@
         android:orientation="vertical">
 
         <Button
+            android:textSize="16dp"
             android:id="@+id/selectImageButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SELECT IMAGE"/>
 
         <ImageView
+            android:adjustViewBounds="true"
             android:id="@+id/imageViewDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,6 +60,7 @@
             android:nestedScrollingEnabled="true"/>
 
         <Button
+            android:textSize="14dp"
             android:id="@+id/generate_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
